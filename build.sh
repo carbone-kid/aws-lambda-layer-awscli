@@ -28,4 +28,11 @@ wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
 mv jq-linux64 layer/awscli/jq
 chmod +x layer/awscli/jq
 
+# install CloudFoundry CLI
+wget -O /etc/yum.repos.d/cloudfoundry-cli.repo https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo
+yum install -y cf-cli
+
+# install Passwd to inject a password into CF CLI
+yum install -y passwd
+
 # cd layer; zip -r ../layer.zip *

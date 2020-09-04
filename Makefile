@@ -1,11 +1,11 @@
 ROOT ?= $(shell pwd)
 AWS_ACCOUNT_ID := $(shell aws sts get-caller-identity --query 'Account' --output text)
-LAYER_NAME ?= awscli-layer
-LAYER_DESC ?= awscli-layer
-S3BUCKET ?= pahud-tmp-us-east-1
-LAMBDA_REGION ?= us-east-1
-LAMBDA_FUNC_NAME ?= awscli-layer-test-func
-LAMBDA_FUNC_DESC ?= awscli-layer-test-func
+LAYER_NAME ?= awscli-cfcli-layer
+LAYER_DESC ?= awscli-cfcli-layer
+S3BUCKET ?= tmp-lambda
+LAMBDA_REGION ?= eu-west-1
+LAMBDA_FUNC_NAME ?= awscli-cfcli-layer-test-func
+LAMBDA_FUNC_DESC ?= awscli-cfcli-layer-test-func
 LAMBDA_ROLE_ARN ?= arn:aws:iam::$(AWS_ACCOUNT_ID):role/service-role/LambdaDefaultRole
 AWS_PROFILE ?= default
 PAYLOAD ?= {"foo":"bar"}

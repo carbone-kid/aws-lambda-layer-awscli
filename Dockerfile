@@ -17,7 +17,14 @@ RUN ./awscli-bundle/install -i /opt/awscli -b /opt/awscli/aws
 RUN wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 \
 && mv jq-linux64 /opt/awscli/jq \
 && chmod +x /opt/awscli/jq
-  
+
+# install CloudFoundry CLI
+RUN wget -O /etc/yum.repos.d/cloudfoundry-cli.repo https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo \
+&& yum install -y cf-cli
+
+# install Passwd to inject a password into CF CLI
+RUN yum install -y passwd
+
 #
 # prepare the runtime at /opt/awscli
 #
@@ -33,6 +40,8 @@ COPY --from=builder /opt/awscli/bin/ /opt/awscli/bin/
 COPY --from=builder /opt/awscli/bin/aws /opt/awscli/aws
 COPY --from=builder /opt/awscli/jq /opt/awscli/jq
 COPY --from=builder /usr/bin/make /opt/awscli/make
+COPY --from=builder /usr/bin/cf /opt/awscli/cf
+COPY --from=builder /usr/bin/passwd /opt/awscli/passwd
 
 # remove unnecessary files to reduce the size
 RUN rm -rf /opt/awscli/pip* /opt/awscli/setuptools* /opt/awscli/awscli/examples
